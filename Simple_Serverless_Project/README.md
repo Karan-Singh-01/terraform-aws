@@ -10,7 +10,7 @@ The two main resources created are the API Gateway and the Lambda function. The 
 
 Resources Created:
 1. API Gateway - REST API: Defines the main API structure.
-2. Lambda Function: Backend logic executed when the API is called.
+2. Lambda Function: Python-based backend logic executed when the API is called.
 3. API Gateway Resource: Defines the URL path for the API.
 4. AWS API Gateway Method: Specifies interaction methods for clients.
 5. API Gateway Integration: Connects API Gateway to the Lambda function.
@@ -29,7 +29,7 @@ After successfully deploying the infrastructure using Terraform, accessing the A
 
 **Troubleshooting:**
 
-For any issues encountered during deployment or configuration, refer to the blog post for troubleshooting tips and best practices.
+For any issues encountered during deployment or configuration, please refer to my blog post for troubleshooting tips and best practices.
 
 **Feedback:**
 
