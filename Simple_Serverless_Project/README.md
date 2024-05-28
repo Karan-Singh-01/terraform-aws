@@ -25,8 +25,9 @@ Resources Created:
 
 **Result:**
 
-After successfully deploying the infrastructure using Terraform, accessing the API's invoke URL will return the following JSON response, depending on your browser:
-![image](https://github.com/Karan-Singh-01/terraform-aws/assets/157451190/41665155-513a-49d0-9b47-e6c335e90dfd)
+After successfully deploying the infrastructure using Terraform, accessing the API's invoke URL will return the response configured in the Lambda's code:
+<img width="984" alt="Screenshot 2024-05-28 at 12 59 25 PM" src="https://github.com/Karan-Singh-01/terraform-aws/assets/157451190/5326dfec-c119-44e7-8f6f-0122320faf27">
+
 
 **Troubleshooting:**
 
