@@ -55,10 +55,6 @@ resource "aws_api_gateway_method_response" "response_200" {
   resource_id = aws_api_gateway_resource.api_resource.id
   http_method = aws_api_gateway_method.api_method.http_method
   status_code = "200"
-
-  response_models = {
-    "application/json" = "Empty"  
-  }
 }
 
 resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
@@ -66,10 +62,6 @@ resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
   resource_id      = aws_api_gateway_resource.api_resource.id
   http_method      = aws_api_gateway_method.api_method.http_method
   status_code      = aws_api_gateway_method_response.response_200.status_code
-
-  response_templates = {
-    "application/json" = ""
-  }
 
   depends_on = [
     aws_api_gateway_method_response.response_200,
