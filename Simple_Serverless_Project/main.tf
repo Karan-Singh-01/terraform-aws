@@ -141,11 +141,9 @@ resource "aws_iam_policy" "lambda_policy" {
     {
       "Effect": "Allow",
       "Action": [
-        "logs:PutLogEvents",
         "logs:CreateLogGroup",
         "logs:CreateLogStream",
-        "logs:DescribeLogGroups",
-        "logs:DescribeLogStreams"
+        "logs:PutLogEvents"
       ],
       "Resource": [
         "arn:aws:logs:${var.region}:${var.account_id}:log-group:/aws/lambda/lambda:*"
