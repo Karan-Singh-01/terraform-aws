@@ -12,13 +12,13 @@ Resources Created:
 1. API Gateway - REST API: Defines the main API structure.
 2. Lambda Function: Python-based backend logic executed when the API is called.
 3. API Gateway Resource: Defines the URL path for the API.
-4. AWS API Gateway Method: Specifies interaction methods for clients.
+4. API Gateway Method: Specifies interaction methods for clients.
 5. API Gateway Integration: Connects API Gateway to the Lambda function.
 6. API Gateway Method Response: Specifies expected responses from API methods.
 7. API Gateway Integration Response: Manages integration responses back to the API.
 8. Lambda Permission: Grants API Gateway permission to invoke the Lambda function.
 9. API Gateway Deployment: Deploys the API to specified stages.
-10. AWS API Gateway Stage: Defines deployment stages like testing or production.
+10. API Gateway Stage: Defines deployment stages like testing or production.
 11. IAM Role and Policy: Manages permissions for secure resource interaction.
 12. IAM Role Policy Attachment: Attaches policies for necessary permissions.
 
