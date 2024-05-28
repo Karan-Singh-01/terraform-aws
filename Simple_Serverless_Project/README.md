@@ -4,7 +4,8 @@ This repository contains the Terraform configuration code referenced in my Mediu
 
 **Project Details:**
 
-<img width="1705" alt="Screenshot 2024-05-27 at 4 24 32 PM" src="https://github.com/Karan-Singh-01/terraform-aws/assets/157451190/fedbd7e9-c97f-4de2-81d4-45ca561dda6b">
+![image](https://github.com/Karan-Singh-01/terraform-aws/assets/157451190/89503e2c-b22d-40ae-bcb0-6ba6c13b26a1)
+
 
 The two main resources created are the API Gateway and the Lambda function. The rest of the resources handle the necessary configurations, integrations, and permissions to ensure seamless operation and secure access.
 
