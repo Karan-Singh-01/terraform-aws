@@ -1,6 +1,6 @@
 **Overview:**
 
-This repository contains the Terraform configuration code referenced in my Medium blog post titled "Troubleshooting API Gateway and Lambda Deployment with Terraform". The project demonstrates setting up an API Gateway REST API connected to an AWS Lambda function. This involves creating several AWS resources using Terraform to ensure seamless integration and deployment. Accessing the API's invoke URL will display the contents of the lambda.py file. 
+This repository contains the Terraform configuration code referenced in my Medium blog post titled "Troubleshooting API Gateway and Lambda Deployment with Terraform". The project demonstrates setting up an API Gateway REST API connected to an AWS Lambda function. This involves creating several AWS resources using Terraform to ensure seamless integration and deployment. Accessing the API's invoke URL will display the response from the lambda function. 
 
 **Project Details:**
 
