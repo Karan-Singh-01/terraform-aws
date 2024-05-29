@@ -23,11 +23,7 @@ Resources Created:
 11. IAM Role and Policy: Manages permissions for secure resource interaction.
 12. IAM Role Policy Attachment: Attaches policies for necessary permissions.
 
-**Result:**
-
-After successfully deploying the infrastructure using Terraform, accessing the API's invoke URL will return the response configured in the Lambda's code:
-<img width="984" alt="Screenshot 2024-05-28 at 12 59 25 PM" src="https://github.com/Karan-Singh-01/terraform-aws/assets/157451190/5326dfec-c119-44e7-8f6f-0122320faf27">
-
+**NOTE** If you are using API proxy integration with Lambda then you need to make a few changes in the code, check out my medium blog post for the same:  
 
 **Troubleshooting:**
 
