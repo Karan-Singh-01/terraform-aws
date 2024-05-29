@@ -6,7 +6,7 @@ def lambda_handler(event, context):
 
 ##################################################################################################
 
-# In case you are using proxy integration then use this code, check out my medium blog to learn more:
+# In case you are using API Gateway proxy integration with Lambda then use this code, check out my medium blog to learn more:
 # 
     
 #import json
