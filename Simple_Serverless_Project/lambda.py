@@ -6,10 +6,8 @@ def lambda_handler(event, context):
 
 ##################################################################################################
 
-# For API Gateway proxy integration with Lambda, use the following code; check out my medium blog to learn more:
-# https://medium.com/@karansingh1550/deploy-serverless-with-terraform-conquer-common-api-gateway-lambda-challenges-e4375a2169eb
-
-# Remove the hash marks (#) from the below code:
+# For API Gateway proxy integration with Lambda, use the following code; check out my medium blog to learn more: https://medium.com/@karansingh1550/deploy-serverless-with-terraform-conquer-common-api-gateway-lambda-challenges-e4375a2169eb
+# Remove the hash marks (#) from the below code and remove the above code:
 
 #import json
 
