@@ -23,11 +23,7 @@ Resources Created:
 11. IAM Role and Policy: Manages permissions for secure resource interaction.
 12. IAM Role Policy Attachment: Attaches policies for necessary permissions.
 
-**NOTE:** If you are using API proxy integration with Lambda then you need to make a few changes in the code, check out my medium blog post for the same:  
-
-**Troubleshooting:**
-
-For any issues encountered during deployment or configuration, please refer to my blog post for troubleshooting tips and best practices.
+**NOTE:** If you are using API proxy integration with Lambda then you need to make a few changes in the code, for any further issues encountered during deployment or configuration, please refer to my blog post.
 
 **Feedback:**
 
