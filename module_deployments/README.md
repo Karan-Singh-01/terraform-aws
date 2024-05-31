@@ -1,6 +1,6 @@
 **Overview:** 
 
-This repository contains Terraform modules designed to facilitate the deployment of an application behind an AWS Application Load Balancer (ALB) within a custom Virtual Private Cloud (VPC), alongside essential IAM roles and network configurations. Modularizing Terraform code not only enhances maintainability by organizing infrastructure components into reusable modules but also promotes scalability and clarity in infrastructure management.
+This repository contains Terraform modules designed to facilitate the deployment of an application behind an AWS Application Load Balancer (ALB) within a custom Virtual Private Cloud (VPC), alongside essential IAM roles and network configurations. Once the deployment is complete, putting the outputted Load Balancer DNS name into your browser displays "Hello World!". Modularizing Terraform code enhances maintainability by organizing infrastructure components into reusable modules and promotes scalability and clarity in infrastructure management.
 
 **Project Structure:**
 
@@ -25,6 +25,7 @@ This repository contains Terraform modules designed to facilitate the deployment
 - Run ```terraform init``` to initialize Terraform.
 - Run ```terraform plan``` to preview the changes that will be made.
 - Run ```terraform apply``` to apply the changes.
+- Once the deployment is complete, put the outputted Load Balancer DNS name into your browser, which displays "Hello World!".
 
 **Customization:** 
 
