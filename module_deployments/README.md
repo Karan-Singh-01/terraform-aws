@@ -20,7 +20,7 @@ This repository contains Terraform modules designed to facilitate the deployment
 
 **Usage:**
 - Clone this repository.
-- Create a file named terraform.tfvars in the root of the repository and set the required variables. Refer to the variables.tf files in each module for a list of variables.
-- Run _terraform init_ to initialize Terraform.
-- Run _terraform plan_ to preview the changes that will be made.
-- Run _terraform apply_ to apply the changes.
+- Modify the terraform.tfvars in the root of the repository and set the required variables. Refer to the variables.tf files in each module for a list of variables.
+- Run ```terraform init``` to initialize Terraform.
+- Run ```terraform plan``` to preview the changes that will be made.
+- Run ```terraform apply``` to apply the changes.
