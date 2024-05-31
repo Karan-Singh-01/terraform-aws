@@ -25,6 +25,19 @@ Resources Created:
 
 **NOTE:** If you are using API proxy integration with Lambda then you need to make a few changes in the code, for any further issues encountered during deployment or configuration, please refer to my blog post.
 
+**Requirements:**
+
+- Terraform >= v1.8.0
+- AWS credentials configured with appropriate permissions.
+
+**Usage:**
+- Clone this repository: ```git clone https://github.com/Karan-Singh-01/terraform-aws.git```
+- Go into the directory: ```cd terraform-aws/Simple_Serverless_Project```
+- Modify the terraform.tfvars and set the required variables. 
+- Run ```terraform init``` to initialize Terraform.
+- Run ```terraform plan``` to preview the changes that will be made.
+- Run ```terraform apply``` to apply the changes.
+
 **Customization:** 
 
 You can adjust the code as you want to suit your specific requirements.
