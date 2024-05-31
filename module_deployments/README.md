@@ -19,7 +19,8 @@ This repository contains Terraform modules designed to facilitate the deployment
 - AWS credentials configured with appropriate permissions.
 
 **Usage:**
-- Clone this repository.
+- Clone this repository: ```git clone https://github.com/Karan-Singh-01/terraform-aws.git```
+- Go into the directory: ```cd terraform-aws/module_deployments```
 - Modify the terraform.tfvars in the root of the repository and set the required variables. Refer to the variables.tf files in each module for a list of variables.
 - Run ```terraform init``` to initialize Terraform.
 - Run ```terraform plan``` to preview the changes that will be made.
