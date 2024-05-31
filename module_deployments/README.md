@@ -25,3 +25,17 @@ This repository contains Terraform modules designed to facilitate the deployment
 - Run ```terraform init``` to initialize Terraform.
 - Run ```terraform plan``` to preview the changes that will be made.
 - Run ```terraform apply``` to apply the changes.
+
+**Customization:** 
+
+You can adjust the code as you want to suit your specific requirements.
+
+**Feedback:**
+
+Feel free to open an issue or reach out with any feedback or questions!
+
+**Let's connect:**
+
+LinkedIn: https://www.linkedin.com/in/karan7678/
+
+Email: karansingh1550@gmail.com
