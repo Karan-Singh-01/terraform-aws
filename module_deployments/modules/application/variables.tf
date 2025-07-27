@@ -1,6 +1,6 @@
 variable "instance_type" {
   type    = string
-  default = "t3.small"
+  default = "t3.large"
 }
 
 variable "key_name" {
