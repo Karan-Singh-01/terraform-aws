@@ -28,7 +28,7 @@ jobs:
       - name: Run Infracost
         uses: infracost/actions/comment@v3
         with:
-          path: . # Assumes .tf files are in the root. Change if they are in a sub-directory.
+          path: module_deployments # Assumes .tf files are in the root. Change if they are in a sub-directory.
           behavior: update
         env:
           INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
