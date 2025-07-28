@@ -3,8 +3,9 @@ name: Infracost
 on:
   pull_request:
     paths:
-      - '**/*.tf'
-      - '**/*.tfvars'
+      - '**.tf'
+      - '**.tfvars'
+      - '.github/workflows/infracost.yaml'
 
 jobs:
   infracost:
@@ -30,7 +31,7 @@ jobs:
           sudo apt-get update && sudo apt-get install terraform
 
       - name: Setup Infracost
-        uses: infracost/infracost-gh-action@v2
+        uses: infracost/actions@v2
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
 
@@ -43,11 +44,9 @@ jobs:
           infracost breakdown --path=terraform-aws \
                               --format=json \
                               --out-file=/tmp/infracost.json
-        env:
-          INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
 
       - name: Post Infracost comment
-        uses: infracost/infracost-gh-action@v2
+        uses: infracost/actions@v2
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
           behavior: update
