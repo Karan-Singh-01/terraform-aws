@@ -1,28 +1,22 @@
-name: Infracost PR Comment
-
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, closed]
 
 jobs:
-  infracost:
+  infracost-pull-request-checks:
     name: Infracost Pull Request Checks
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize')
     runs-on: ubuntu-latest
-    environment: production
+    environment: production 
     permissions:
       contents: read
       pull-requests: write
-
+      
     steps:
       - name: Setup Infracost
         uses: infracost/actions/setup@v3
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
-
-      - name: Install Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: latest
 
       - name: Checkout base branch
         uses: actions/checkout@v4
@@ -31,36 +25,25 @@ jobs:
 
       - name: Generate Infracost cost estimate baseline
         run: |
-          set -e
-          terraform init -input=false
-          infracost breakdown \
-            --path=. \
-            --format=json \
-            --out-file=/tmp/infracost-base.json
+          infracost breakdown --path=. \
+                              --format=json \
+                              --out-file=/tmp/infracost-base.json
 
       - name: Checkout PR branch
         uses: actions/checkout@v4
 
       - name: Generate Infracost diff
         run: |
-          set -e
-          terraform init -input=false
-          infracost diff \
-            --path=. \
-            --compare-to=/tmp/infracost-base.json \
-            --format=json \
-            --out-file=/tmp/infracost.json
-          echo "Diff output:"
-          cat /tmp/infracost.json
+          infracost diff --path=. \
+                          --format=json \
+                          --compare-to=/tmp/infracost-base.json \
+                          --out-file=/tmp/infracost.json
 
-      - name: Validate JSON format (debug)
-        run: jq . /tmp/infracost.json
-
+  
       - name: Post Infracost comment
         run: |
-          infracost comment github \
-            --path=/tmp/infracost.json \
-            --repo=$GITHUB_REPOSITORY \
-            --github-token=${{ secrets.GITHUB_TOKEN }} \
-            --pull-request=${{ github.event.pull_request.number }} \
-            --behavior=update
+            infracost comment github --path=/tmp/infracost.json \
+                                     --repo=$GITHUB_REPOSITORY \
+                                     --github-token=${{ github.token }} \
+                                     --pull-request=${{ github.event.pull_request.number }} \
+                                     --behavior=update
