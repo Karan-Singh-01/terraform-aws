@@ -1,13 +1,12 @@
-name: Infracost
+name: Infracost PR Comment
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize]
 
 jobs:
-  infracost-pull-request-checks:
+  infracost:
     name: Infracost Pull Request Checks
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     environment: production
     permissions:
@@ -20,18 +19,19 @@ jobs:
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
 
-      - name: Checkout base branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.base.ref }}
-
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
 
+      - name: Checkout base branch
+        uses: actions/checkout@v4
+        with:
+          ref: '${{ github.event.pull_request.base.ref }}'
+
       - name: Generate Infracost cost estimate baseline
         run: |
+          set -e
           terraform init -input=false
           infracost breakdown \
             --path=. \
@@ -43,11 +43,18 @@ jobs:
 
       - name: Generate Infracost diff
         run: |
+          set -e
           terraform init -input=false
           infracost diff \
             --path=. \
             --compare-to=/tmp/infracost-base.json \
+            --format=json \
             --out-file=/tmp/infracost.json
+          echo "Diff output:"
+          cat /tmp/infracost.json
+
+      - name: Validate JSON format (debug)
+        run: jq . /tmp/infracost.json
 
       - name: Post Infracost comment
         run: |
