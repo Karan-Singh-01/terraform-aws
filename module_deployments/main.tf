@@ -53,13 +53,13 @@ module "application" {
   instance_profile     = module.iam.ssm_profile
 
   asg_desired          = "3"
-  asg_max_size         = "3"
+  asg_max_size         = "4"
   asg_min_size         = "1"
 
   ebs_block_device = [
     { device_name           = "/dev/sdb"
       volume_type           = "gp2"
-      volume_size           = 50
+      volume_size           = 100
       delete_on_termination = true
     }
   ]
