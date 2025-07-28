@@ -8,7 +8,7 @@ on:
 
 jobs:
   infracost:
-    name: Run Infracost CLI
+    name: Infracost Cost Estimate
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,15 +30,29 @@ jobs:
           curl -s https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
           echo "$HOME/.infracost/bin" >> $GITHUB_PATH
 
-      - name: Generate Infracost breakdown JSON
+      - name: Terraform Init
+        run: terraform init
+        working-directory: module_deployments
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan.binary
+        working-directory: module_deployments
+
+      - name: Show Plan JSON
+        run: terraform show -json tfplan.binary > plan.json
+        working-directory: module_deployments
+
+      - name: Generate Infracost JSON
         run: |
-          infracost breakdown --path=module_deployments \
+          infracost breakdown \
+            --path=plan.json \
             --format=json \
             --out-file=/tmp/infracost.json
+        working-directory: module_deployments
         env:
           INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
 
-      - name: Post Infracost comment
+      - name: Post Infracost Comment
         run: |
           infracost comment github \
             --path=/tmp/infracost.json \
