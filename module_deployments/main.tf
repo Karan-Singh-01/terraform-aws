@@ -51,9 +51,9 @@ module "application" {
   private_subnets      = module.network.private_subnets
   key_name             = var.key_name
   instance_profile     = module.iam.ssm_profile
-  asg_desired          = "5"
+  asg_desired          = "6"
   asg_max_size         = "6"
-  asg_min_size         = "3"
+  asg_min_size         = "5"
 
   ebs_block_device = [
     { device_name           = "/dev/sdb"
