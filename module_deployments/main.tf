@@ -52,8 +52,8 @@ module "application" {
   key_name             = var.key_name
   instance_profile     = module.iam.ssm_profile
   instance_type        = "t2.micro"
-  asg_desired          = "2"
-  asg_max_size         = "2"
+  asg_desired          = "3"
+  asg_max_size         = "3"
   asg_min_size         = "1"
 
   ebs_block_device = [
