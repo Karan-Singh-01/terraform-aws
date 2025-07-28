@@ -8,27 +8,43 @@ on:
 
 jobs:
   infracost:
-    name: Run Infracost
+    name: Run Infracost CLI
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
 
     steps:
-      - name: Check out repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Configure AWS Credentials
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Run Infracost
-        uses: infracost/infracost-gh-action@v2
-        with:
-          path: module_deployments
-          behavior: update
+      - name: Install Infracost CLI
+        run: |
+          curl -s https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+          echo "$HOME/.infracost/bin" >> $GITHUB_PATH
+
+      - name: Generate Infracost breakdown JSON
+        run: |
+          infracost breakdown --path=module_deployments \
+            --format=json \
+            --out-file=/tmp/infracost.json
+        env:
+          INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Post Infracost comment
+        run: |
+          infracost comment github \
+            --path=/tmp/infracost.json \
+            --repo=$GITHUB_REPOSITORY \
+            --github-token=${{ secrets.GITHUB_TOKEN }} \
+            --pull-request=${{ github.event.pull_request.number }} \
+            --behavior=update
         env:
           INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
