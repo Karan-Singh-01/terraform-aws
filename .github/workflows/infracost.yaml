@@ -1,52 +1,48 @@
-name: Infracost
-
 on:
   pull_request:
-    paths:
-      - 'terraform-aws/**'
-      - '.github/workflows/infracost.yaml'
+    types: [opened, synchronize, closed]
 
 jobs:
-  infracost:
-    name: Infracost cost estimate
+  infracost-pull-request-checks:
+    name: Infracost Pull Request Checks
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize')
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      pull-requests: write
+      
     steps:
-      - name: Checkout code
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v3
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Checkout base branch
+        uses: actions/checkout@v4
+        with:
+          ref: '${{ github.event.pull_request.base.ref }}'
+
+      - name: Generate Infracost cost estimate baseline
+        run: |
+          infracost breakdown --path=. \
+                              --format=json \
+                              --out-file=/tmp/infracost-base.json
+
+      - name: Checkout PR branch
         uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
-
-      - name: Install Terraform
+      - name: Generate Infracost diff
         run: |
-          sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
-          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-          sudo apt-get update && sudo apt-get install terraform
+          infracost diff --path=. \
+                          --format=json \
+                          --compare-to=/tmp/infracost-base.json \
+                          --out-file=/tmp/infracost.json
 
-      - name: Setup Infracost
-        uses: infracost/infracost-gh-action@v3
-        with:
-          api-key: ${{ secrets.INFRACOST_API_KEY }}
-
-      - name: Run terraform init
-        run: terraform init
-        working-directory: terraform-aws
-
-      - name: Generate Infracost cost estimate
-        run: |
-          infracost breakdown --path=terraform-aws \
-                              --format=json \
-                              --out-file=/tmp/infracost.json
-
+  
       - name: Post Infracost comment
-        uses: infracost/infracost-gh-action@v3
-        with:
-          api-key: ${{ secrets.INFRACOST_API_KEY }}
-          behavior: update
-          path: /tmp/infracost.json
+        run: |
+            infracost comment github --path=/tmp/infracost.json \
+                                     --repo=$GITHUB_REPOSITORY \
+                                     --github-token=${{ github.token }} \
+                                     --pull-request=${{ github.event.pull_request.number }} \
+                                     --behavior=update
