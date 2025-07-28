@@ -51,6 +51,7 @@ module "application" {
   private_subnets      = module.network.private_subnets
   key_name             = var.key_name
   instance_profile     = module.iam.ssm_profile
+
   asg_desired          = "3"
   asg_max_size         = "4"
   asg_min_size         = "1"
