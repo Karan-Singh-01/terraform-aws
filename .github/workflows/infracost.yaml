@@ -25,6 +25,11 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.base.ref }}
 
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: latest
+
       - name: Generate Infracost cost estimate baseline
         run: |
           terraform init -input=false
